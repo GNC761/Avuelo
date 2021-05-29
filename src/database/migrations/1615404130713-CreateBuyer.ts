@@ -2,6 +2,7 @@ import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
 export class CreateBuyer1615404130713 implements MigrationInterface {
 
+    //Pessoa que usará o site para comprar roupas
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -16,7 +17,7 @@ export class CreateBuyer1615404130713 implements MigrationInterface {
                     },
                     {
                         name: "cpf",
-                        type: "numeric",
+                        type: "varchar",
                         isUnique: true
                     },
                     {
@@ -29,36 +30,39 @@ export class CreateBuyer1615404130713 implements MigrationInterface {
                         type: "numeric"
                     },
                     {
-                        name: "cpf",
-                        type: "varchar"
-                    },
-                    {
                         name: "cep",
-                        type: "numeric"
+                        type: "numeric",
+                        isNullable: true
                     },
                     {
                         name: "estado",
-                        type: "varchar"
+                        type: "varchar",
+                        isNullable: true
                     },
                     {
                         name: "cidade",
-                        type: "varchar"
+                        type: "varchar",
+                        isNullable: true
                     },
                     {
                         name: "bairro",
-                        type: "varchar"
+                        type: "varchar",
+                        isNullable: true
                     },
                     {
                         name: "endereço",
-                        type: "varchar"
+                        type: "varchar",
+                        isNullable: true
                     },
                     {
                         name: "numero",
-                        type: "varchar"
+                        type: "varchar",
+                        isNullable: true
                     },
                     {
                         name: "complemento",
-                        type: "varchar"
+                        type: "varchar",
+                        isNullable: true
                     },
                 ]
             })
@@ -66,6 +70,7 @@ export class CreateBuyer1615404130713 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable("Buyer");
     }
 
 }

@@ -1,0 +1,7 @@
+
+
+class BuyerController {
+
+}
+
+export { BuyerController };

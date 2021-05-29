@@ -2,6 +2,7 @@ import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
 export class CreateProduct1615232491174 implements MigrationInterface {
 
+    //Produtos que serão vendidos na loja
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -13,9 +14,10 @@ export class CreateProduct1615232491174 implements MigrationInterface {
                         isPrimary: true,
                         generationStrategy: "uuid"
                     },
-
-                    //ID_Loja
-
+                    {
+                        name: "id_loja",
+                        type: "uuid",
+                    },
                     {
                         name: "categoria",
                         type: "varchar"
@@ -59,10 +61,27 @@ export class CreateProduct1615232491174 implements MigrationInterface {
                         type: "numeric",
                     },
                     {
+                        name: "estoque",
+                        type: "numeric",
+                        isNullable: true,
+                    },
+                    {
                         name: "codigo",
                         type: "varchar",
+                        isNullable: true
                     },
-                ]
+                ],
+                //ID da loja
+                foreignKeys: [
+                    {
+                        name: "FKLoja",
+                        referencedTableName: "Store",
+                        referencedColumnNames: ["id"],
+                        columnNames: ["id_loja"],
+                        onDelete: "CASCADE",
+                        onUpdate: "CASCADE"
+                    }
+                ],
             })
         );
     }

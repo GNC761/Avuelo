@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { v4 as uuid} from 'uuid';
+import { User } from "./User";
 
 @Entity("Store")
 class Store {
@@ -7,8 +8,13 @@ class Store {
     @PrimaryColumn()
     readonly id: string;
 
-    //importar chave : ID_Dono
-    //relação (1-n)
+    //FK dono da loja
+    @JoinColumn({ name: "id_dono"})
+    @ManyToOne( () => User)
+    user: User;
+
+    @Column()
+    id_dono: string
 
     @Column()
     email: string;
@@ -27,9 +33,6 @@ class Store {
 
     @Column()
     bairro: string;
-
-    @Column()
-    endereço: string;
 
     @Column()
     numero: string;

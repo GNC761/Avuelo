@@ -2,6 +2,7 @@ import {Column, MigrationInterface, QueryRunner, Table} from "typeorm";
 
 export class CreateEmployee1615402140748 implements MigrationInterface {
 
+    //Pessoas contratadas para trabalhar na loja
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -13,45 +14,18 @@ export class CreateEmployee1615402140748 implements MigrationInterface {
                         isPrimary: true,
                         generationStrategy: "uuid"
                     },
-
-                    //id_loja
-
+                    {
+                        name: "id_loja",
+                        type: "uuid"
+                    },
                     {
                         name: "nome",
                         type: "varchar"
                     },
                     {
                         name: "cpf",
-                        type: "numeric",
+                        type: "varchar",
                         isUnique: true
-                    },
-                    {
-                        name: "cep",
-                        type: "numeric"
-                    },
-                    {
-                        name: "estado",
-                        type: "varchar"
-                    },
-                    {
-                        name: "cidade",
-                        type: "varchar"
-                    },
-                    {
-                        name: "bairro",
-                        type: "varchar"
-                    },
-                    {
-                        name: "endereço",
-                        type: "varchar"
-                    },
-                    {
-                        name: "numero",
-                        type: "varchar"
-                    },
-                    {
-                        name: "complemento",
-                        type: "varchar"
                     },
                     {
                         name: "email",
@@ -60,9 +34,21 @@ export class CreateEmployee1615402140748 implements MigrationInterface {
                     },
                     {
                         name: "telefone",
-                        type: "numeric"
+                        type: "numeric",
+                        isNullable: true
                     },
-                ]
+                ],
+                //id da loja
+                foreignKeys: [
+                    {
+                        name: "FKLoja",
+                        referencedTableName: "Store",
+                        referencedColumnNames: ["id"],
+                        columnNames: ["id_loja"],
+                        onDelete: "SET NULL",
+                        onUpdate: "SET NULL"
+                    }
+                ],
             })
         );
     }

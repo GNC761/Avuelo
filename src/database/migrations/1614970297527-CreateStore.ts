@@ -2,6 +2,7 @@ import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
 export class CreateStore1614970297527 implements MigrationInterface {
 
+    //Tabelo da loja
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -13,7 +14,10 @@ export class CreateStore1614970297527 implements MigrationInterface {
                         isPrimary: true,
                         generationStrategy: "uuid"
                     },
-                    //Inserir chave esterna aqui? ID_Dono
+                    {
+                        name: "id_dono",
+                        type: "uuid",
+                    },
                     {
                         name: "email",
                         type: "varchar",
@@ -25,7 +29,7 @@ export class CreateStore1614970297527 implements MigrationInterface {
                     },
                     {
                         name: "cep",
-                        type: "numric"
+                        type: "numeric"
                     },
                     {
                         name: "estado",
@@ -37,10 +41,6 @@ export class CreateStore1614970297527 implements MigrationInterface {
                     },
                     {
                         name: "bairro",
-                        type: "varchar"
-                    },
-                    {
-                        name: "endereço",
                         type: "varchar"
                     },
                     {
@@ -63,6 +63,17 @@ export class CreateStore1614970297527 implements MigrationInterface {
                         name: "nome_fantasia",
                         type: "varchar"
                     },
+                ],
+                //id do dono
+                foreignKeys: [
+                    {
+                        name: "FKUser",
+                        referencedTableName: "User",
+                        referencedColumnNames: ["id"],
+                        columnNames: ["id_dono"],
+                        onDelete: "CASCADE",
+                        onUpdate: "CASCADE"
+                    }
                 ]
 
             })

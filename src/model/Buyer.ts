@@ -8,7 +8,7 @@ class Buyer {
     readonly id: string;
 
     @Column()
-    cpf: number;
+    cpf: string;
 
     @Column()
     email: string;

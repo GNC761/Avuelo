@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { v4 as uuid} from 'uuid';
+import { Store } from "./Store";
 
 @Entity("Employee")
 class Employee {
@@ -7,32 +8,18 @@ class Employee {
     @PrimaryColumn()
     readonly id: string;
 
+    @JoinColumn({ name: "id_loja"})
+    @ManyToOne(() => Store)
+    store: Store
+
+    @Column()
+    id_loja: string
+
     @Column()
     name: string;
 
     @Column()
-    cpf: number;
-
-    @Column()
-    cep: number;
-
-    @Column()
-    estado: string;
-
-    @Column()
-    cidade: string;
-
-    @Column()
-    bairro: string;
-
-    @Column()
-    endereço: string;
-
-    @Column()
-    numero: string;
-
-    @Column()
-    complemento: string;
+    cpf: string;
 
     @Column()
     email: string;

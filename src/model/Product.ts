@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { v4 as uuid} from 'uuid';
+import { Store } from "./Store";
 
 @Entity("Product")
 class Product {
@@ -7,9 +8,13 @@ class Product {
     @PrimaryColumn()
     readonly id: string;
 
-    //importar chave : ID_Loja
-    //relação (n-1)
+    @JoinColumn({ name: "id_loja" })
+    @ManyToOne(() => Store)
+    store: Store
 
+    @Column()
+    id_loja: string
+    
     @Column()
     categoria: string;
 
@@ -39,6 +44,9 @@ class Product {
 
     @Column()
     preço_venda: number;
+
+    @Column()
+    estoque: number;
 
     @Column()
     codigo: string;

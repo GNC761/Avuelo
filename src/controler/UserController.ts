@@ -1,30 +1,53 @@
-// import { Request, Response } from 'express'
-// import { getCustomRepository } from "typeorm";
-// import { UserRepository } from '../repository/UserRepository'
+import { Request, Response } from 'express'
+import { getCustomRepository } from "typeorm";
+import { UserRepository } from '../repository/UserRepository'
+import { UserService } from '../services/UserService';
 
-// class UserController{
-//     async create (request: Request, response: Response){
-//         //const { title, description } = request.body;
 
-//         const Userrepository = getCustomRepository(UserRepository);
+class UserController{
+    async create (request: Request, response: Response){
 
-//         const User = Userrepository.create({
-//             //title, description
-//         });
+        const { name, cpf, cep, estado, cidade, bairro, numero, 
+        complemento, email_pessoal, telefone_pessoal } = request.body;
 
-//         await Userrepository.save(User);
+        const userservice = new UserService();
+        
+        try{
+            const user = await userservice.create({name, cpf, cep, estado, cidade, bairro, numero,
+            complemento, email_pessoal, telefone_pessoal });
 
-//         return response.status(201).json(User);
-//     }
+            return response.status(201).json({ user });
+        }catch(err){
+            return response.status(400).json({
+                message: err.message,
+            });
+        }
+    }
 
-//     async show (request:Request, response:Response){
-//         const Userrepository = getCustomRepository(UserRepository);
+    async findByEmail( request: Request, response: Response){
+        const userservice = new UserService();
 
-//         const all = await Userrepository.find();
+        const { email } = request.params;
 
-//         return response.json(all);
-//     }
+        try{
+            const userExists = await userservice.findByEmail( email );
 
-// }
+            return response.status(201).json({ userExists });
+        }catch(err){
+            return response.status(400).json({
+                message: err.message,
+            });
+        }
+    }
 
-// export {UserController};
+    // async show (request:Request, response:Response){
+    //     const Userrepository = getCustomRepository(UserRepository);
+
+    //     const all = await Userrepository.find();
+
+    //     return response.json(all);
+    // }
+
+}
+
+export {UserController};

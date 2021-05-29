@@ -11,7 +11,7 @@ class User {
     name: string;
 
     @Column()
-    cpf: number;
+    cpf: string;
 
     @Column()
     cep: number;
@@ -24,9 +24,6 @@ class User {
 
     @Column()
     bairro: string;
-
-    @Column()
-    endereço: string;
 
     @Column()
     numero: string;

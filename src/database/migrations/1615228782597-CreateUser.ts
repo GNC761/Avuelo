@@ -2,6 +2,7 @@ import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
 export class CreateUser1615228782597 implements MigrationInterface {
 
+    //Dono Da loja
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -19,7 +20,7 @@ export class CreateUser1615228782597 implements MigrationInterface {
                     },
                     {
                         name: "cpf",
-                        type: "numeric",
+                        type: "varchar",
                         isUnique: true,
                     },
                     {
@@ -39,10 +40,6 @@ export class CreateUser1615228782597 implements MigrationInterface {
                         type: "varchar"
                     },
                     {
-                        name: "endereço",
-                        type: "varchar"
-                    },
-                    {
                         name: "numero",
                         type: "varchar"
                     },
@@ -58,7 +55,6 @@ export class CreateUser1615228782597 implements MigrationInterface {
                     {
                         name: "telefone_pessoal",
                         type: "numeric",
-                        isUnique: true,
                     }                                       
                 ]
             })
