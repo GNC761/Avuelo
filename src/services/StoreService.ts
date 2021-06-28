@@ -4,7 +4,8 @@ import { Store } from "../model/Store";
 import { StoreRepository } from "../repository/StoreRespository";
 
 interface IStoreService{
-    id_dono: string,
+    store_id?: string,
+    id_dono?: string,
     email: string,
     telefone: number,
     cep: number,
@@ -15,7 +16,7 @@ interface IStoreService{
     complemento: string,
     cnpj: number,
     razao_social: string,
-    nome_fantasia: string
+    nome_fantasia: string,
 }
 
 
@@ -45,6 +46,31 @@ class StoreService {
 
             return store;
         }
+    }
+
+    async findByCNPJ( cnpj ) {
+
+        const exists = await this.Storerepository.findOne( cnpj );
+
+        if (!exists){
+            throw new Error("CNPJ não encontrado");
+        }else{
+            return exists;
+        }
+    }
+
+    async update({ store_id, email, telefone, cep, estado, cidade,
+    bairro, numero, complemento, cnpj, razao_social, nome_fantasia}:IStoreService){
+
+        const store = await this.Storerepository
+        .createQueryBuilder()
+        .update(Store)
+        .set({ email, telefone, cep, estado, cidade,
+            bairro, numero, complemento, cnpj, razao_social, nome_fantasia })
+        .where("id = :id", { id: store_id })
+        .execute();
+
+        return store;
     }
 }
 

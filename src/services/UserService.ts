@@ -3,6 +3,7 @@ import { User } from "../model/User"
 import { UserRepository } from "../repository/UserRepository"
 
 interface IUserService {
+    user_id?: string;
     name: string;
     cpf: string;
     cep: number;
@@ -34,8 +35,8 @@ class UserService {
         }
         //Se não, salvar
         else{
-        const user = this.Userrepository.create({ name, cpf, cep, estado, cidade, bairro, numero,
-            complemento, email_pessoal, telefone_pessoal });
+        const user = this.Userrepository.create({ name, cpf, cep, estado, cidade, bairro,
+        numero, complemento, email_pessoal, telefone_pessoal });
 
         await this.Userrepository.save(user);
         
@@ -52,6 +53,20 @@ class UserService {
         }else{
             return exists;
         }
+    }
+
+    async update({ user_id, name, cpf, cep, estado, cidade, bairro, numero, 
+    complemento, email_pessoal, telefone_pessoal }: IUserService ){
+
+        const user = await this.Userrepository
+        .createQueryBuilder()
+        .update(User)
+        .set({name, cpf, cep, estado, cidade, bairro, 
+            numero, complemento, email_pessoal, telefone_pessoal})
+        .where("id = :id", { id: user_id })
+        .execute();
+
+        return user;
     }
 }
 

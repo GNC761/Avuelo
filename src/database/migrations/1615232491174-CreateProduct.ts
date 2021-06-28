@@ -65,11 +65,6 @@ export class CreateProduct1615232491174 implements MigrationInterface {
                         type: "numeric",
                         isNullable: true,
                     },
-                    {
-                        name: "codigo",
-                        type: "varchar",
-                        isNullable: true
-                    },
                 ],
                 //ID da loja
                 foreignKeys: [

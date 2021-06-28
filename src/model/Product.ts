@@ -14,15 +14,15 @@ class Product {
 
     @Column()
     id_loja: string
+
+    @Column()
+    descrição: string;
     
     @Column()
     categoria: string;
 
     @Column()
     genero: string;
-
-    @Column()
-    descrição: string;
 
     @Column()
     cor: string;
@@ -48,9 +48,6 @@ class Product {
     @Column()
     estoque: number;
 
-    @Column()
-    codigo: string;
-    
     constructor(){
         if(!this.id)
             this.id = uuid();

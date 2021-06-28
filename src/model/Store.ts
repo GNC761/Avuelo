@@ -17,6 +17,12 @@ class Store {
     id_dono: string
 
     @Column()
+    razao_social: string;
+
+    @Column()
+    nome_fantasia: string;
+
+    @Column()
     email: string;
 
     @Column()
@@ -42,12 +48,6 @@ class Store {
 
     @Column()
     cnpj: number;
-
-    @Column()
-    razao_social: string;
-
-    @Column()
-    nome_fantasia: string;
 
     constructor(){
         if(!this.id)
